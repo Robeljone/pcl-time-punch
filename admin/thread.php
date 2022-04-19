@@ -7,18 +7,22 @@ $timezone = new DateTimeZone('Africa/Nairobi');
 	$schdate = $d2->format('Y-m-d');
 	$time = $d2->format('H:i:s');
 	$qry = $conn->query("SELECT * from employee_schedule where dates='$schdate' ");
-    $row = mysqli_fetch_row($qry);
+    $row = mysqli_fetch_array($qry);
 	if($qry->num_rows > 0)
     {
         //echo $row;
-        foreach($row as $key=> $data)
+        foreach($row as $data)
         {
-            echo $data;
-        //    $qry2 = $conn->query("SELECT * FROM attendance where employee_id='".$data['emp_id']."' and  datetime_log='$schdate' and log_type='clock_in' ");
-        //     if($qry2->num_rows < 0)
-        //     {
-        //         $save_log= $conn->query("INSERT INTO attendance (log_type,employee_id,employee_name,status) values ('','".$data['emp_id']."','".$data['employee_name']."','Absent')");
-        //     } 
+           $qry2 = $conn->query("SELECT * FROM attendance where employee_id='".$row["emp_id"]."' and  datetime_log='$schdate' and log_type='clock_in' ");
+            if($qry2->num_rows < 0)
+            {
+                echo "test done";
+                //$save_log= $conn->query("INSERT INTO attendance (log_type,employee_id,employee_name,status) values (' ','".$row['emp_id']."','".$row['employee_name']."','Absent')");
+            } 
+            else
+            {
+                
+            }
         }
         // while($row!=null)
         // {
